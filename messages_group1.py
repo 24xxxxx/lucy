@@ -1,6 +1,6 @@
 # messages.py
 MESSAGES = {
-    "lucy_hot_fresh_100": [
+    "lucy_hot": [
         "Your name just made me clench harder 😈🫦",
         "Come steal my breath in DMs tonight 💨🥵",
         "This body is screaming for your fingerprints 🤤🖐️",
