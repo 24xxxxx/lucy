@@ -2,18 +2,13 @@ name: Send Messages to Both Groups with Time Difference
 
 on:
   schedule:
-    # گروه اول: راس هر ساعت (مثلاً ۱۲:۰۰, ۱۳:۰۰, ۱۴:۰۰)
-    - cron: '0 * * * *'
-    
-    # گروه دوم: ۲۰ دقیقه بعد (مثلاً ۱۲:۲۰, ۱۳:۲۰, ۱۴:۲۰)
-    - cron: '20 * * * *'
-  
+    - cron: '0 * * * *'   # گروه اول: راس هر ساعت
+    - cron: '20 * * * *'  # گروه دوم: ۲۰ دقیقه بعد
   workflow_dispatch:
 
 jobs:
   send-to-group1:
     runs-on: ubuntu-latest
-    if: github.event.schedule == '0 * * * *'  # فقط وقتی ساعت راس ۰ دقیقه هست اجرا کن
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
@@ -29,7 +24,6 @@ jobs:
 
   send-to-group2:
     runs-on: ubuntu-latest
-    if: github.event.schedule == '20 * * * *'  # فقط وقتی ساعت ۲۰ دقیقه هست اجرا کن
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
