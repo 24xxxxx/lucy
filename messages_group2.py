@@ -1,6 +1,6 @@
 # messages.py
 MESSAGES = {
-    "lucy_hot_new": [
+    "lucy_hot": [
         "Come slide in my DMs and ruin me 😈💦",
         "This pussy is getting wet just for you 🫦🔥",
         "Who's gonna choke me tonight? 🤤🔗",
