@@ -1,0 +1,43 @@
+name: Send Telegram Messages 4 Times a Day
+
+on:
+  schedule:
+    # ۴ بار در روز (به وقت ایران = UTC + 3:30)
+    # ساعت ۹ صبح تهران = 5:30 UTC
+    - cron: '30 5 * * *'   # ۹ صبح
+    # ساعت ۱۳ ظهر تهران = 9:30 UTC
+    - cron: '30 9 * * *'   # ۱ بعدازظهر
+    # ساعت ۱۸ عصر تهران = 14:30 UTC
+    - cron: '30 14 * * *'  # ۶ عصر
+    # ساعت ۲۲ شب تهران = 18:30 UTC
+    - cron: '30 18 * * *'  # ۱۰ شب
+  
+  workflow_dispatch:  # برای اجرای دستی
+
+jobs:
+  send-message:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 📥 دریافت کد از ریپازیتوری
+      uses: actions/checkout@v3
+      
+    - name: 🐍 نصب پایتون
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: 📦 نصب کتابخانه‌های مورد نیاز
+      run: |
+        pip install requests
+        
+    - name: 🤖 اجرای ربات و ارسال پیام
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+      run: |
+        python bot.py
+        
+    - name: 📋 گزارش نتیجه
+      run: |
+        echo "✅ پیام در ساعت $(date) ارسال شد"
