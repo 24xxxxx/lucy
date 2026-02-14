@@ -1,24 +1,33 @@
-name: Send Telegram Messages 4 Times a Day
+name: Send Telegram Messages Every Hour
 
 on:
   schedule:
-    - cron: '30 5 * * *'   # ۹ صبح
-    - cron: '30 9 * * *'   # ۱ بعدازظهر
-    - cron: '30 14 * * *'  # ۶ عصر
-    - cron: '30 18 * * *'  # ۱۰ شب
+    # هر ساعت یک بار (هر روز، هر ساعت، راس ساعت 0 دقیقه UTC)
+    - cron: '0 * * * *'
+  
+  # اینم بذار تا بتونی دستی هم اجراش کنی برای تست
   workflow_dispatch:
 
 jobs:
   send-message:
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      - run: pip install requests
-      - name: Run bot
-        env:
-          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-          CHAT_ID: ${{ secrets.CHAT_ID }}
-        run: python bot.py
+    - name: 📥 Get code
+      uses: actions/checkout@v3
+      
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: 📦 Install dependencies
+      run: |
+        pip install requests
+        
+    - name: 🤖 Run bot
+      env:
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        CHAT_ID: ${{ secrets.CHAT_ID }}
+      run: |
+        python bot.py
