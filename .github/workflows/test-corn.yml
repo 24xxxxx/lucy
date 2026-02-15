@@ -1,10 +1,16 @@
-name: Test Cron
+name: Test Cron - Reliable Every 15 Minutes
+
 on:
   schedule:
-    - cron: '*/5 * * * *'   # هر ۵ دقیقه یک بار
+    - cron: '7,22,37,52 * * * *'   # دقیقه‌های ۷،۲۲،۳۷،۵۲ هر ساعت → از شلوغی دور می‌مونه
   workflow_dispatch:
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Cron is working at $(date)"
+      - name: Print timestamp
+        run: |
+          echo "Cron is working!"
+          echo "Current time (UTC): $(date -u '+%Y-%m-%d %H:%M:%S')"
+          echo "Iran ≈ UTC+3:30 (or +4:30 in summer)"
