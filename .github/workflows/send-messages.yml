@@ -2,18 +2,20 @@ name: Send Messages to Both Groups with Time Difference
 
 on:
   schedule:
-    - cron: '0 * * * *'   # گروه اول: راس  هر ساعت
-    - cron: '20 * * * *'  # گروه دوم: ۲۰ دقیقه بعد
+    - cron: '0 * * * *'     # گروه اول: راس هر ساعت
+    - cron: '20 * * * *'    # گروه دوم: ۲۰ دقیقه بعد
+    
   workflow_dispatch:
 
 jobs:
   send-to-group1:
     runs-on: ubuntu-latest
+    if: contains(github.event.schedule, '0 * * * *')   # این خیلی مطمئن‌تره
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4      # بهتره v4 استفاده کنی (v3 قدیمی شده)
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'        # یا 3.12 – جدیدتر بهتره
       - run: pip install requests
       - name: Send to Group 1
         env:
@@ -24,11 +26,12 @@ jobs:
 
   send-to-group2:
     runs-on: ubuntu-latest
+    if: contains(github.event.schedule, '20 * * * *')
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
       - run: pip install requests
       - name: Send to Group 2
         env:
