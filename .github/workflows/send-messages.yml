@@ -2,7 +2,7 @@ name: Send Messages to Both Groups with Time Difference
 
 on:
   schedule:
-    - cron: '0 * * * *'   # گروه اول: راس هر ساعت
+    - cron: '0 * * * *'   # گروه اول: راس  هر ساعت
     - cron: '20 * * * *'  # گروه دوم: ۲۰ دقیقه بعد
   workflow_dispatch:
 
